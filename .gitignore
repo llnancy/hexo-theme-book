@@ -1,0 +1,10 @@
+node_modules
+.vscode
+.DS_Store
+.idea
+Thumbs.db
+db.json
+*.log
+public/
+.deploy*/
+_multiconfig.yml
