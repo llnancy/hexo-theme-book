@@ -1,9 +1,9 @@
 $highlight-theme = hexo-theme-config('codeblock.highlight_theme');
 
-@require 'theme';
-@require 'diff';
+@import 'theme';
+@import 'diff';
 
-// .code-block {
+// %code-block {
 // font-family: $code-font-family;
 // background: $highlight-background;
 // color: $highlight-foreground;
@@ -11,7 +11,7 @@ $highlight-theme = hexo-theme-config('codeblock.highlight_theme');
 // margin: $line-margin auto $line-margin;
 // }
 
-// .disable-user-select {
+// %disable-user-select {
 // -moz-user-select: none;
 // -ms-user-select: none;
 // -webkit-user-select: none;
@@ -26,7 +26,7 @@ code {
 }
 
 pre {
-  // @extend .code-block;
+  // @extend %code-block;
   overflow: auto;
   padding: 10px;
 
@@ -39,7 +39,7 @@ pre {
 }
 
 .highlight {
-  // @extend .code-block;
+  // @extend %code-block;
   font-size: $font-size-smallest;
   overflow: auto;
 
@@ -112,7 +112,7 @@ pre {
 }
 
 .gutter {
-  // @extend .disable-user-select;
+  // @extend %disable-user-select;
 }
 
 .gist table {
@@ -135,7 +135,7 @@ pre {
 
   .meta {
     color: $highlight-yellow;
-    // @extend %disable-user-select
+    // @extend %disable-user-select;
   }
 
   .comment {
