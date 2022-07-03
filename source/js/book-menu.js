@@ -1,28 +1,42 @@
+let menuStack = [];
+
 function collapse(name, body, i) {
     if (name.classList.contains('accordion')) {
-        var acco_body = name.querySelector('.accordion-body');
-        acco_body.appendChild(body);
+        let accordionBody = name.querySelector('.accordion-body');
+        accordionBody.appendChild(body);
         return name;
     }
-
-    var accordion = document.createElement('div');
+    let accordion = document.createElement('div');
     accordion.setAttribute("class", "accordion");
 
-    var acco_body = document.createElement('div');
+    if (name.tagName !== 'H2') {
+        accordion.setAttribute("class", "child-accordion");
+    }
+
+    let acco_body = document.createElement('div');
     acco_body.setAttribute("class", "accordion-body");
     acco_body.appendChild(body);
 
-    var checkbox = document.createElement('input');
+    let checkbox = document.createElement('input');
     checkbox.setAttribute("type", "checkbox");
     checkbox.setAttribute("id", "accordion-" + i);
     checkbox.setAttribute("hidden", "");
 
-    var label = document.createElement('label');
-    label.textContent = name.textContent
+    let label = document.createElement('label');
     label.setAttribute("class", "accordion-header c-hand");
     label.setAttribute("for", "accordion-" + i);
 
-    var icon = document.createElement('i');
+    if (name.tagName === 'H2') {
+        let strong = document.createElement('strong');
+        strong.textContent = name.textContent;
+        label.appendChild(strong);
+    } else {
+        let em = document.createElement('em');
+        em.textContent = name.textContent;
+        label.appendChild(em);
+    }
+
+    let icon = document.createElement('i');
     icon.setAttribute("class", "icon icon-arrow-down");
     label.appendChild(icon);
 
@@ -30,7 +44,14 @@ function collapse(name, body, i) {
     accordion.appendChild(label);
     accordion.appendChild(acco_body);
 
-    name.parentNode.replaceChild(accordion, name);
+    if (name.tagName === 'H2') {
+        menuStack.push(acco_body);
+        name.parentNode.replaceChild(accordion, name);
+    } else {
+        let parentAccordionBody = menuStack[menuStack.length - 1];
+        parentAccordionBody.appendChild(accordion);
+        name.parentNode.removeChild(name);
+    }
 }
 
 // clear invalid syntax
@@ -43,20 +64,33 @@ function clear_invalid_syntax() {
 // pack accordion
 function pack_menu_accordion() {
     document.querySelectorAll('.book-menu > ul').forEach((e, idx) => {
-        var sibling = e.previousElementSibling;
+        let sibling = e.previousElementSibling;
+        let siblingStack = [];
         while (sibling != null) {
-            if (sibling.tagName == "H1" || sibling.tagName == "H2" ||
-                sibling.tagName == "H3" || sibling.tagName == "H4" ||
-                sibling.tagName == "H5" || sibling.tagName == "H6") {
+            if (!sibling || sibling.tagName === 'UL') {
                 break;
+            }
+            if (sibling.tagName === "H1" || sibling.tagName === "H2" ||
+                sibling.tagName === "H3" || sibling.tagName === "H4" ||
+                sibling.tagName === "H5" || sibling.tagName === "H6") {
+                siblingStack.push(sibling);
             }
             sibling = sibling.previousElementSibling;
         }
-        if (!sibling || sibling.tagName == "H1") {
+        if (!sibling || sibling.tagName === "H1") {
+            siblingStack.pop();
             e.classList.add('uncollapsible');
-        }
-        else {
-            collapse(sibling, e, idx);
+        } else {
+            for (let i = siblingStack.length - 1; i >= 0; i--) {
+                let pop = siblingStack.pop();
+                if (siblingStack.length === 0) {
+                    // H3
+                    collapse(pop, e, idx + i);
+                } else {
+                    // H2
+                    collapse(pop, e, idx + i);
+                }
+            }
         }
     })
 }
@@ -68,23 +102,26 @@ function highlight_current_tab() {
         // normalized url
         let sharp = window.location.href.search('#');
         let url = window.location.href
-        if (sharp != -1) {
+        if (sharp !== -1) {
             url = url.slice(0, sharp);
         }
-        if (url.slice(-1) == '/') {
+        if (url.slice(-1) === '/') {
             url = url.slice(0, -1);
         }
         if (item.href === url) {
             item.classList.add('current-tab')
             var parent = item.parentNode;
+            let parentList = [];
             while (!parent.classList.contains("book-menu")) {
-                if (parent.classList.contains("accordion")) {
-                    break;
+                if (parent.classList.contains("accordion") || parent.classList.contains("child-accordion")) {
+                    parentList.push(parent);
                 }
                 parent = parent.parentNode;
             }
-            if (parent.classList.contains("accordion")) {
-                parent.querySelector('input').setAttribute("checked", "");
+            if (parentList.length !== 0) {
+                parentList.forEach((parent) => {
+                    parent.querySelector('input').setAttribute("checked", "");
+                });
             }
         }
     })

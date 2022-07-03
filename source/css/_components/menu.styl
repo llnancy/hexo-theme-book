@@ -1,7 +1,7 @@
 .book-menu {
   position: fixed;
   top: 3.25rem;
-  bottom: 0rem;
+  bottom: 0;
   width: $sidebar-width;
   overflow-x: hidden;
   overflow-y: auto;
@@ -28,7 +28,12 @@
     border-top: 1px solid #e7e7e7;
   }
 
-  .accordion {
+  .child-accordion {
+    padding: $sidebar-menu-spacing $sidebar-ending-pd $sidebar-menu-spacing 0 !important;
+    border-top: none !important;
+  }
+
+  .accordion, .child-accordion {
     padding: $sidebar-menu-spacing $sidebar-ending-pd $sidebar-menu-spacing $sidebar-starting-pd;
     border-top: 1px solid rgb(231, 231, 231);
 
@@ -43,6 +48,10 @@
       margin: 0;
     }
 
+    input:checked ~ .accordion-header {
+      padding: 0 0 $sidebar-menu-spacing 0 !important;
+    }
+
     input:checked ~ .accordion-header .icon {
       transform: rotate(-180deg);
     }
@@ -55,7 +64,10 @@
     }
   }
 
-  .accordion input:checked~.accordion-body, .accordion[open] .accordion-body {
+  .accordion input:checked~.accordion-body,
+  .child-accordion input:checked~.accordion-body,
+  .child-accordion[open] .accordion-body
+  .accordion[open] .accordion-body {
     max-height: unset;
   }
 
@@ -65,11 +77,15 @@
 
   li {
     margin-top: $sidebar-menu-spacing;
+    margin-bottom: $sidebar-menu-depth;
   }
 
   a {
     color: $book-primary-link-color;
     font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   a:hover {

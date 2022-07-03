@@ -15,7 +15,11 @@
 
   <div class="off-canvas-content">
     <div class="columns">
+      <% if(!is_current('/') && !is_current('disclaimer') && !is_current('update')) { %>
       <div class="column col-10 col-lg-12">
+      <% } else { %>
+      <div class="column col-12 col-lg-12">
+      <% } %>
         <div class="book-navbar">
           <%- partial('_partials/navbar') %>
         </div>
@@ -23,9 +27,11 @@
           <%- body %>
         </div>
       </div>
+      <% if(!is_current('/') && !is_current('disclaimer') && !is_current('update')) { %>
       <div class="column col-2 hide-lg">
         <%- partial('_partials/post-info') %>
       </div>
+      <% } %>
     </div>
   </div>
   
