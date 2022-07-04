@@ -1,7 +1,15 @@
 <div class="book-post">
-  <% if(theme.ad && theme.ad.post_top) { %>
-  <div class="ads-wrap"><%- theme.ad.post_top %></div>
-  <% } %> <%- page.content %>
+  <% if(theme.ad && theme.ad.post_top && !(theme.ad.skip_top && theme.ad.skip_top.includes(path))) { %>
+    <div class="ads-wrap">
+      <%- theme.ad.post_top %>
+    </div>
+  <% } %>
+    <%- page.content %>
+  <% if (theme.ad && theme.ad.post_bottom && !(theme.ad.skip_bottom && theme.ad.skip_bottom.includes(path))) { %>
+    <div class="ads-wrap">
+      <%- theme.ad.post_bottom %>
+    </div>
+  <% } %>
 </div>
 
 <% if(page.comments === undefined || page.comments) { %>

@@ -146,6 +146,5 @@ window.addEventListener('beforeunload', () => {
 })
 
 if (window.localStorage.sidebarPos) {
-    let sidebarPos = window.localStorage.sidebarPos
-    document.querySelector('.book-menu').scrollTop = sidebarPos
+    document.querySelector('.book-menu').scrollTop = window.localStorage.sidebarPos
 }
