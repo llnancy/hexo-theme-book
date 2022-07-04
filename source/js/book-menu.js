@@ -85,10 +85,10 @@ function pack_menu_accordion() {
                 let pop = siblingStack.pop();
                 if (siblingStack.length === 0) {
                     // H3
-                    collapse(pop, e, idx + i);
+                    collapse(pop, e, uuidv4());
                 } else {
                     // H2
-                    collapse(pop, e, idx + i);
+                    collapse(pop, e, uuidv4());
                 }
             }
         }
