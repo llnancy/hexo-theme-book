@@ -1,7 +1,7 @@
-home_page: home.md        # filepath under /source/
-menu_page: menu.md        # filepath under /source/
-author_img:               # filepath of author image
-favicon_url: favicon.png  # filepath of favicon
+home_page: home.md # filepath under /source/
+menu_page: menu.md # filepath under /source/
+author_img: # filepath of author image
+favicon_url: favicon.png # filepath of favicon
 
 zoom_image: true
 codeblock:
@@ -25,7 +25,18 @@ comments:
     ClientID: # GitHub Application Client ID
     ClientSecret: # GitHub Application Client Secret
     adminUser: # GitHub repository owner and collaborators
-    labels: 'gitalk' # GitHub issue labels
+    labels: "gitalk" # GitHub issue labels
     distractionFreeMode: true
 
 google_analytics: # UA-XXXXX-Y
+
+# Google Adsense (谷歌廣告)
+google_adsense:
+  enable: true
+  auto_ads: true
+  js: https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+  client: ca-pub-xxxxxxx
+  enable_page_level_ads: true
+
+ad:
+  post_top: # 手动广告代码

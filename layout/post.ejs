@@ -1,11 +1,9 @@
 <div class="book-post">
-  <%- page.content %>
+  <% if(theme.ad && theme.ad.post_top) { %>
+  <div class="ads-wrap"><% theme.ad.post_top %></div>
+  <% } %> <%- page.content %>
 </div>
 
 <% if(page.comments === undefined || page.comments) { %>
-  <div class="book-comments">
-    <%- partial('_lib/comments') %>
-  </div>
-<% } %>
-
-<%- js('js/book-post') %>
+<div class="book-comments"><%- partial('_lib/comments') %></div>
+<% } %> <%- js('js/book-post') %>
