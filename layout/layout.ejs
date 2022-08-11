@@ -15,7 +15,7 @@
 
   <div class="off-canvas-content">
     <div class="columns">
-      <% if (!theme.skip_post_info.includes(path)) { %>
+      <% if (!(skip_post_info && theme.skip_post_info.includes(path))) { %>
         <div class="column col-10 col-lg-12">
       <% } else { %>
         <div class="column col-12 col-lg-12">
@@ -27,7 +27,7 @@
           <%- body %>
         </div>
       </div>
-      <% if (!theme.skip_post_info.includes(path)) { %>
+      <% if (!(skip_post_info && theme.skip_post_info.includes(path))) { %>
       <div class="column col-2 hide-lg">
         <%- partial('_partials/post-info') %>
       </div>

@@ -15,7 +15,7 @@ However, I suggest that you should try hugo first before using hexo (if you neve
 ## 💿 Installation
 
 ```
-git clone https://github.com/kaiiiz/hexo-theme-book.git themes/book
+git clone https://github.com/sunchaser-lilu/hexo-theme-book.git themes/book
 ```
 
 If you don't have scss renderer, follow this:
