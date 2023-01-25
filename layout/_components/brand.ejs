@@ -3,6 +3,6 @@
     <% if (theme.favicon_svg) { %> <%- theme.favicon_svg %> <% } else { %>
     <img src="<%- url_for(theme.favicon_url) %>" />
     <% } %>
-    <span><%= config.title.toUpperCase() %></span>
+    <span><%= config.title %></span>
   </a>
 </div>
